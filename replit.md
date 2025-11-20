@@ -7,9 +7,13 @@ NutriGPT is a React-based web application that provides personalized nutrition p
 
 ## Recent Changes (November 20, 2025)
 - Configured project for Replit environment
-- Updated Vite config to use port 5000 for webview compatibility
+- Updated Vite config to use port 5000 and allowedHosts for webview compatibility
 - Fixed index.html to properly load app using Vite's module system (removed external CDN import maps)
 - Configured GEMINI_API_KEY secret for AI functionality
+- **Added Supabase integration** for cloud database storage
+- Installed @supabase/supabase-js package
+- Created database service layer (databaseService.ts) for profiles and daily plans
+- Configured SUPABASE_URL and SUPABASE_ANON_KEY secrets
 - Set up deployment configuration for static site deployment
 - Created workflow for development server
 
@@ -20,7 +24,8 @@ NutriGPT is a React-based web application that provides personalized nutrition p
 - **Build Tool:** Vite 6.4.1
 - **Styling:** Tailwind CSS (loaded via CDN - no build plugin configured)
 - **AI Service:** Google Gemini 2.5 Flash (via @google/genai 1.30.0)
-- **State Management:** React useState with localStorage persistence
+- **Database:** Supabase PostgreSQL (via @supabase/supabase-js 2.x)
+- **State Management:** React useState with localStorage + Supabase sync
 
 ### Project Structure
 ```
@@ -36,7 +41,9 @@ NutriGPT is a React-based web application that provides personalized nutrition p
 │   ├── ProgressTab.tsx  # Progress tracking view
 │   └── ShoppingList.tsx # Shopping list component
 ├── services/
-│   └── geminiService.ts # Google Gemini AI integration
+│   ├── geminiService.ts    # Google Gemini AI integration
+│   ├── supabaseClient.ts   # Supabase client configuration
+│   └── databaseService.ts  # Database CRUD operations
 ├── App.tsx              # Main app component
 ├── index.tsx            # React entry point
 ├── types.ts             # TypeScript type definitions
@@ -57,15 +64,24 @@ NutriGPT is a React-based web application that provides personalized nutrition p
 5. **Shopping List:** Organized ingredients for the day's meals
 
 ### Data Storage
-- Uses browser localStorage for:
+**Hybrid Storage Strategy:**
+- **localStorage:** Primary storage for quick access and offline functionality
   - User profile (`nutrigpt_profile`)
   - Daily plans (`nutrigpt_daily_plan`)
   - Plan dates (`nutrigpt_plan_date`)
+  - User ID (`nutrigpt_user_id`)
+
+- **Supabase (Cloud Database):** Backup and sync storage
+  - `profiles` table: User profiles with full metadata
+  - `daily_plans` table: Historical meal plans and workouts
+  - See `SUPABASE_SCHEMA.md` for complete database schema
 
 ## Configuration
 
 ### Environment Variables
 - `GEMINI_API_KEY`: Google Gemini API key (required, stored in Replit Secrets)
+- `SUPABASE_URL`: Supabase project URL (required for database features)
+- `SUPABASE_ANON_KEY`: Supabase anonymous/public key (required for database features)
 
 ### Development Server
 - Port: 5000 (configured for Replit webview)

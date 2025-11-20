@@ -17,9 +17,9 @@ NutriGPT is a React-based web application that provides personalized nutrition p
 
 ### Tech Stack
 - **Frontend Framework:** React 19.2.0 with TypeScript
-- **Build Tool:** Vite 6.2.0
-- **Styling:** Tailwind CSS (via CDN)
-- **AI Service:** Google Gemini 2.5 Flash (via @google/genai package)
+- **Build Tool:** Vite 6.4.1
+- **Styling:** Tailwind CSS (loaded via CDN - no build plugin configured)
+- **AI Service:** Google Gemini 2.5 Flash (via @google/genai 1.30.0)
 - **State Management:** React useState with localStorage persistence
 
 ### Project Structure

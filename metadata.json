@@ -1,0 +1,5 @@
+{
+  "name": "NutriGPT",
+  "description": "Um nutricionista virtual personalizado que gera cardápios diários, listas de compras e treinos baseados no seu perfil e região.",
+  "requestFramePermissions": []
+}
